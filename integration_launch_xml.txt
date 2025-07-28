@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<env:Envelope
+    xmlns:env="http://schemas.xmlsoap.org/soap/envelope/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+    <env:Header>
+        <wsse:Security env:mustUnderstand="1">
+            <wsse:UsernameToken>
+                <wsse:Username>$Username</wsse:Username>
+                <wsse:Password
+                    Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">$Password</wsse:Password>
+            </wsse:UsernameToken>
+        </wsse:Security>
+    </env:Header>
+    <env:Body>
+        <wd:Launch_Integration_Event_Request
+            xmlns:wd="urn:com.workday/bsvc"
+            wd:Debug_Mode="false"
+            wd:version="v40.2">
+            <wd:Integration_System_Reference>
+                <wd:ID wd:type="Integration_System_ID">$INT_Sys_ID</wd:ID>
+            </wd:Integration_System_Reference>
+            <wd:Integration_Launch_Parameter_Data>
+                <wd:Launch_Parameter_Reference>
+                    <wd:ID
+                        wd:type="Launch_Parameter_Name"
+                        wd:parent_id="$INT_Sys_ID"
+                        wd:parent_type="Integration_System_ID">Updated From</wd:ID>
+                </wd:Launch_Parameter_Reference>
+                <wd:Launch_Parameter_Value_Data>
+                    <wd:DateTime>$Updated_From</wd:DateTime>
+                </wd:Launch_Parameter_Value_Data>
+            </wd:Integration_Launch_Parameter_Data>
+            <wd:Integration_Launch_Parameter_Data>
+                <wd:Launch_Parameter_Reference>
+                    <wd:ID
+                        wd:type="Launch_Parameter_Name"
+                        wd:parent_id="$INT_Sys_ID"
+                        wd:parent_type="Integration_System_ID">Updated Through</wd:ID>
+                </wd:Launch_Parameter_Reference>
+                <wd:Launch_Parameter_Value_Data>
+                    <wd:DateTime>$Updated_Through</wd:DateTime>
+                </wd:Launch_Parameter_Value_Data>
+            </wd:Integration_Launch_Parameter_Data>
+            <wd:Integration_Launch_Parameter_Data>
+                <wd:Launch_Parameter_Reference>
+                    <wd:ID
+                        wd:type="Launch_Parameter_Name"
+                        wd:parent_id="$INT_Sys_ID"
+                        wd:parent_type="Integration_System_ID">Effective From</wd:ID>
+                </wd:Launch_Parameter_Reference>
+                <wd:Launch_Parameter_Value_Data>
+                    <wd:Date>$Effective_From</wd:Date>
+                </wd:Launch_Parameter_Value_Data>
+            </wd:Integration_Launch_Parameter_Data>
+            <wd:Integration_Launch_Parameter_Data>
+                <wd:Launch_Parameter_Reference>
+                    <wd:ID
+                        wd:type="Launch_Parameter_Name"
+                        wd:parent_id="$INT_Sys_ID"
+                        wd:parent_type="Integration_System_ID">Effective Through</wd:ID>
+                </wd:Launch_Parameter_Reference>
+                <wd:Launch_Parameter_Value_Data>
+                    <wd:Date>$Effective_Through</wd:Date>
+                </wd:Launch_Parameter_Value_Data>
+            </wd:Integration_Launch_Parameter_Data>
+            <wd:Integration_Launch_Parameter_Data>
+                <wd:Launch_Parameter_Reference>
+                    <wd:ID
+                        wd:type="Launch_Parameter_Name"
+                        wd:parent_id="$INT_Sys_ID"
+                        wd:parent_type="Integration_System_ID">Worker</wd:ID>
+                </wd:Launch_Parameter_Reference>
+                <wd:Launch_Parameter_Value_Data>
+                    <wd:Instance_Reference>
+                        <wd:ID wd:type="Employee_ID">$Associate_ID</wd:ID>
+                    </wd:Instance_Reference>
+                </wd:Launch_Parameter_Value_Data>
+            </wd:Integration_Launch_Parameter_Data>
+        </wd:Launch_Integration_Event_Request>
+    </env:Body>
+</env:Envelope>

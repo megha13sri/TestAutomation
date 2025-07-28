@@ -1,0 +1,54 @@
+profiles:
+  - python-web
+
+owner:
+  group: workday-integration-dev
+notify:
+  slack:
+    channelName: peopletech-integrations-modernization
+
+setup:
+  featureFlagMap:
+    useArtifactory: true
+
+build:
+  looper:
+    enableDockerNoCache: false
+    enableDockerClean: false
+  docker:
+    app:
+      buildArgs:
+        skipCodeCoverage: true
+
+deploy:
+  releaseType:
+    waitForReady: true
+    rollbackOnError: true
+  helm:
+    values:
+       min:
+         cpu: 150m
+         memory: 128Mi
+       max:
+         cpu: 250m
+         memory: 512Mi
+       startupProbe:
+         enabled: "true"
+         path: "/"
+         port: 8080
+         probeInterval: 20
+         failureThreshold: 30
+       livenessProbe:
+           path: "/"
+           port: 8080
+           wait: 15
+      readinessProbe:
+        path: "/"
+        port: 8080
+        wait: 15
+
+  stages:
+    - name: lab
+      target:
+        - cluster_id: [scus-lab-a1]
+      refs: ["main"]
